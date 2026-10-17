@@ -1,7 +1,19 @@
 # 🍌 Banana Shop
 
 เว็บร้านขายกล้วยหลากสายพันธุ์ (Term Project วิชา 261342 Database)
-สร้างด้วย **Laravel 13 + Livewire starter kit** รันบน **Laravel Sail (Docker) + MySQL 8.4**
+สร้างด้วย **Laravel 13 + React starter kit (Inertia + React + TypeScript + Tailwind + shadcn/ui)** รันบน **Laravel Sail (Docker) + MySQL 8.4**
+
+### โค้ดอยู่ตรงไหน
+| ส่วน | ภาษา | โฟลเดอร์ |
+|---|---|---|
+| หน้าเว็บ | TypeScript (React) | `resources/js/pages/` (เช่น `welcome.tsx`, `dashboard.tsx`) |
+| Component (ปุ่ม, การ์ด, navbar) | TypeScript (React) | `resources/js/components/` |
+| Layout | TypeScript (React) | `resources/js/layouts/` |
+| URL → หน้าไหน | PHP | `routes/web.php` |
+| ดึง/บันทึกข้อมูล แล้วส่งให้หน้า React | PHP | `app/Http/Controllers/` (ใช้ `Inertia::render('ชื่อหน้า', [...ข้อมูล])`) |
+| ตาราง / ข้อมูลตัวอย่าง | PHP | `app/Models/`, `database/migrations/`, `database/seeders/` |
+
+> ระหว่างเขียนหน้าเว็บ ต้องเปิด `sail npm run dev` ค้างไว้เสมอ (เซฟไฟล์ `.tsx` แล้วหน้าเว็บเปลี่ยนทันที)
 
 ---
 
