@@ -1,7 +1,12 @@
 export type User = {
-    id: number;
+    user_id: number;
     name: string;
     email: string;
+    phone: string | null;
+    address: string | null;
+    total_spent: string;
+    tier_id: number | null;
+    is_admin: boolean;
     avatar?: string;
     email_verified_at: string | null;
     two_factor_enabled?: boolean;
@@ -11,7 +16,7 @@ export type User = {
 };
 
 export type Auth = {
-    user: User;
+    user: User | null; // null = ยังไม่ล็อกอิน
 };
 
 export type Passkey = {
