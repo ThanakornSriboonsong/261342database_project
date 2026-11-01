@@ -1,6 +1,7 @@
 import { Link, router, usePage } from '@inertiajs/react';
 import {
     Heart,
+    LayoutDashboard,
     LogOut,
     Package,
     Search,
@@ -25,11 +26,12 @@ import { index as cartIndex } from '@/routes/cart';
 import { index as ordersIndex } from '@/routes/orders';
 import { edit as profileEdit } from '@/routes/profile';
 import { index as productsIndex } from '@/routes/products';
+import { dashboard as adminDashboard } from '@/routes/admin';
 import { index as wishlistIndex } from '@/routes/wishlist';
 
 export default function ShopLayout({ children }: { children: ReactNode }) {
     const page = usePage();
-    const { auth, name } = page.props;
+    const { auth, name, cartCount } = page.props;
     const getInitials = useInitials();
 
     // popup / dropdown ถูก render นอก layout ใส่ class ที่ body ให้ใช้สีร้านด้วย
@@ -120,13 +122,18 @@ export default function ShopLayout({ children }: { children: ReactNode }) {
                                     href={cartIndex()}
                                     aria-label="ตะกร้าสินค้า"
                                     className={cn(
-                                        'rounded-full p-2 transition-colors hover:bg-muted',
+                                        'relative rounded-full p-2 transition-colors hover:bg-muted',
                                         isActive(cartIndex.url())
                                             ? 'text-foreground'
                                             : 'text-muted-foreground',
                                     )}
                                 >
                                     <ShoppingBag className="size-5" />
+                                    {cartCount > 0 && (
+                                        <span className="absolute -top-0.5 -right-0.5 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-banana px-1 text-[10px] font-semibold text-on-banana tabular-nums">
+                                            {cartCount > 99 ? '99+' : cartCount}
+                                        </span>
+                                    )}
                                 </Link>
 
                                 <DropdownMenu>
@@ -171,6 +178,14 @@ export default function ShopLayout({ children }: { children: ReactNode }) {
                                         >
                                             ตั้งค่าบัญชี
                                         </MenuLink>
+                                        {auth.user.is_admin && (
+                                            <MenuLink
+                                                href={adminDashboard.url()}
+                                                icon={LayoutDashboard}
+                                            >
+                                                จัดการร้าน (Admin)
+                                            </MenuLink>
+                                        )}
                                         <DropdownMenuSeparator />
                                         <DropdownMenuItem asChild>
                                             <Link

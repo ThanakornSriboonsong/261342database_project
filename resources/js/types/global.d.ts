@@ -11,6 +11,7 @@ declare module '@inertiajs/core' {
         sharedPageProps: {
             name: string;
             auth: Auth;
+            cartCount: number; // จำนวนสินค้าในตะกร้า (0 ถ้ายังไม่ล็อกอิน)
             sidebarOpen: boolean;
             [key: string]: unknown;
         };
