@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -41,6 +42,14 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            // Total quantity in the cart, for the navbar badge. Lazy, so it only runs when sent.
+            // Queried directly so a cart created earlier in the request is counted.
+            'cartCount' => fn (): int => $request->user()
+                ? (int) DB::table('cart_items')
+                    ->join('carts', 'carts.cart_id', '=', 'cart_items.cart_id')
+                    ->where('carts.user_id', $request->user()->getKey())
+                    ->sum('cart_items.quantity')
+                : 0,
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
     }
