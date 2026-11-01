@@ -50,6 +50,13 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
+        // Orders keep a restrict foreign key to the cart, so members who have ordered can't be deleted.
+        if ($user->summaries()->exists()) {
+            Inertia::flash('toast', ['type' => 'error', 'message' => __('Accounts with order history cannot be deleted.')]);
+
+            return to_route('profile.edit');
+        }
+
         Auth::logout();
 
         $user->delete();
