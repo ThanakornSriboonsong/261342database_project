@@ -1,7 +1,6 @@
-import { Form, Head } from '@inertiajs/react';
+import { Form, Head, Link } from '@inertiajs/react';
 import InputError from '@/components/input-error';
 import PasswordInput from '@/components/password-input';
-import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
@@ -10,7 +9,6 @@ import { Spinner } from '@/components/ui/spinner';
 import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
-import PasskeyVerify from '@/components/passkey-verify';
 
 type Props = {
     status?: string;
@@ -22,96 +20,99 @@ export default function Login({ status, canResetPassword }: Props) {
         <>
             <Head title="Log in" />
 
-            <PasskeyVerify />
+            {status && (
+                <p className="mb-4 rounded-lg bg-forest-soft px-3 py-2 text-sm text-forest">
+                    {status}
+                </p>
+            )}
 
             <Form
                 {...store.form()}
                 resetOnSuccess={['password']}
-                className="flex flex-col gap-6"
+                className="space-y-5"
             >
                 {({ processing, errors }) => (
                     <>
-                        <div className="grid gap-6">
-                            <div className="grid gap-2">
-                                <Label htmlFor="email">Email address</Label>
-                                <Input
-                                    id="email"
-                                    type="email"
-                                    name="email"
-                                    required
-                                    autoFocus
-                                    tabIndex={1}
-                                    autoComplete="email"
-                                    placeholder="email@example.com"
-                                />
-                                <InputError message={errors.email} />
-                            </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="email">อีเมล</Label>
+                            <Input
+                                id="email"
+                                type="email"
+                                name="email"
+                                required
+                                autoFocus
+                                tabIndex={1}
+                                autoComplete="email"
+                                placeholder="you@example.com"
+                                className="h-11 rounded-lg bg-background"
+                            />
+                            <InputError message={errors.email} />
+                        </div>
 
-                            <div className="grid gap-2">
-                                <div className="flex items-center">
-                                    <Label htmlFor="password">Password</Label>
-                                    {canResetPassword && (
-                                        <TextLink
-                                            href={request()}
-                                            className="ml-auto text-sm"
-                                            tabIndex={5}
-                                        >
-                                            Forgot your password?
-                                        </TextLink>
-                                    )}
-                                </div>
-                                <PasswordInput
-                                    id="password"
-                                    name="password"
-                                    required
-                                    tabIndex={2}
-                                    autoComplete="current-password"
-                                    placeholder="Password"
-                                />
-                                <InputError message={errors.password} />
+                        <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                                <Label htmlFor="password">รหัสผ่าน</Label>
+                                {canResetPassword && (
+                                    <Link
+                                        href={request()}
+                                        tabIndex={5}
+                                        className="text-sm text-muted-foreground hover:text-foreground"
+                                    >
+                                        ลืมรหัสผ่าน?
+                                    </Link>
+                                )}
                             </div>
+                            <PasswordInput
+                                id="password"
+                                name="password"
+                                required
+                                tabIndex={2}
+                                autoComplete="current-password"
+                                placeholder="รหัสผ่าน"
+                                className="h-11 rounded-lg bg-background"
+                            />
+                            <InputError message={errors.password} />
+                        </div>
 
-                            <div className="flex items-center space-x-3">
-                                <Checkbox
-                                    id="remember"
-                                    name="remember"
-                                    tabIndex={3}
-                                />
-                                <Label htmlFor="remember">Remember me</Label>
-                            </div>
+                        <label className="flex cursor-pointer items-center gap-2 text-sm">
+                            <Checkbox
+                                id="remember"
+                                name="remember"
+                                tabIndex={3}
+                            />
+                            จดจำการเข้าสู่ระบบ
+                        </label>
 
-                            <Button
-                                type="submit"
-                                className="mt-4 w-full"
-                                tabIndex={4}
-                                disabled={processing}
-                                data-test="login-button"
+                        <Button
+                            type="submit"
+                            size="lg"
+                            className="w-full rounded-full"
+                            tabIndex={4}
+                            disabled={processing}
+                            data-test="login-button"
+                        >
+                            {processing && <Spinner />}
+                            เข้าสู่ระบบ
+                        </Button>
+
+                        <p className="border-t pt-5 text-center text-sm text-muted-foreground">
+                            ยังไม่มีบัญชี?{' '}
+                            <Link
+                                href={register()}
+                                tabIndex={5}
+                                className="font-medium text-foreground hover:underline"
                             >
-                                {processing && <Spinner />}
-                                Log in
-                            </Button>
-                        </div>
-
-                        <div className="text-center text-sm text-muted-foreground">
-                            Don't have an account?{' '}
-                            <TextLink href={register()} tabIndex={5}>
-                                Sign up
-                            </TextLink>
-                        </div>
+                                สมัครสมาชิก
+                            </Link>
+                        </p>
                     </>
                 )}
             </Form>
-
-            {status && (
-                <div className="mb-4 text-center text-sm font-medium text-green-600">
-                    {status}
-                </div>
-            )}
         </>
     );
 }
 
 Login.layout = {
-    title: 'Log in to your account',
-    description: 'Enter your email and password below to log in',
+    title: 'เข้าสู่ระบบ',
+    description: 'ยินดีต้อนรับกลับมา กรอกอีเมลและรหัสผ่านเพื่อสั่งซื้อต่อ',
 };
