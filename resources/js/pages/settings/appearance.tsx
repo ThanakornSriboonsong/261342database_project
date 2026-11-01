@@ -1,32 +1,18 @@
 import { Head } from '@inertiajs/react';
 import AppearanceTabs from '@/components/appearance-tabs';
-import Heading from '@/components/heading';
-import { edit as editAppearance } from '@/routes/appearance';
 
 export default function Appearance() {
     return (
         <>
             <Head title="Appearance settings" />
 
-            <h1 className="sr-only">Appearance settings</h1>
-
-            <div className="space-y-6">
-                <Heading
-                    variant="small"
-                    title="Appearance settings"
-                    description="Update the appearance settings for your account"
-                />
+            <section className="rounded-xl border bg-card p-6">
+                <h2 className="text-lg font-semibold">การแสดงผล</h2>
+                <p className="mt-1 mb-6 text-sm text-muted-foreground">
+                    เลือกโหมดสว่าง โหมดมืด หรือให้เปลี่ยนตามการตั้งค่าของอุปกรณ์
+                </p>
                 <AppearanceTabs />
-            </div>
+            </section>
         </>
     );
 }
-
-Appearance.layout = {
-    breadcrumbs: [
-        {
-            title: 'Appearance settings',
-            href: editAppearance(),
-        },
-    ],
-};

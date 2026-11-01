@@ -25,7 +25,7 @@ void createInertiaApp({
             case name.startsWith('auth/'):
                 return AuthLayout;
             case name.startsWith('settings/'):
-                return [AppLayout, SettingsLayout];
+                return [ShopLayout, SettingsLayout];
             default:
                 return AppLayout;
         }
