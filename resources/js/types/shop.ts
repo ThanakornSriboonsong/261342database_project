@@ -90,3 +90,10 @@ export type Paginated<T> = {
     prev_page_url: string | null;
     next_page_url: string | null;
 };
+
+/** สถานะสมาชิกของคนที่ล็อกอินอยู่ (shared prop `membership`, null ถ้ายังไม่ล็อกอิน) */
+export type Membership = {
+    tier: { name: string; min_spent: number } | null; // null = ยังไม่มี tier (เช่น บัญชี admin)
+    total_spent: number;
+    next_tier: { name: string; min_spent: number; remaining: number } | null; // null = อยู่ tier สูงสุดแล้ว
+};

@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Tier;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Middleware;
@@ -50,7 +52,28 @@ class HandleInertiaRequests extends Middleware
                     ->where('carts.user_id', $request->user()->getKey())
                     ->sum('cart_items.quantity')
                 : 0,
+            // Tier name, total spent and the next tier, for the account menu and profile page.
+            'membership' => fn (): ?array => $request->user() ? $this->membership($request->user()) : null,
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+        ];
+    }
+
+    /**
+     * @return array{tier: ?array{name: string, min_spent: float}, total_spent: float, next_tier: ?array{name: string, min_spent: float, remaining: float}}
+     */
+    private function membership(User $user): array
+    {
+        $totalSpent = (float) $user->total_spent;
+        $next = Tier::where('min_spent', '>', $totalSpent)->orderBy('min_spent')->first();
+
+        return [
+            'tier' => $user->tier ? ['name' => $user->tier->name, 'min_spent' => (float) $user->tier->min_spent] : null,
+            'total_spent' => $totalSpent,
+            'next_tier' => $next ? [
+                'name' => $next->name,
+                'min_spent' => (float) $next->min_spent,
+                'remaining' => round((float) $next->min_spent - $totalSpent, 2),
+            ] : null,
         ];
     }
 }

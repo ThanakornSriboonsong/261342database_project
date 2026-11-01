@@ -2,6 +2,7 @@ import { Form, Head, Link, usePage } from '@inertiajs/react';
 import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController';
 import DeleteUser from '@/components/delete-user';
 import InputError from '@/components/input-error';
+import MembershipCard from '@/components/membership-card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -14,11 +15,13 @@ export default function Profile({
     mustVerifyEmail: boolean;
     status?: string;
 }) {
-    const { auth } = usePage().props;
+    const { auth, membership } = usePage().props;
 
     return (
         <>
             <Head title="Profile settings" />
+
+            {membership && <MembershipCard membership={membership} />}
 
             <section className="rounded-xl border bg-card p-6">
                 <h2 className="text-lg font-semibold">ข้อมูลส่วนตัว</h2>

@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { useEffect } from 'react';
 import type { ReactNode } from 'react';
+import TierBadge from '@/components/tier-badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
     DropdownMenu,
@@ -31,7 +32,7 @@ import { index as wishlistIndex } from '@/routes/wishlist';
 
 export default function ShopLayout({ children }: { children: ReactNode }) {
     const page = usePage();
-    const { auth, name, cartCount } = page.props;
+    const { auth, name, cartCount, membership } = page.props;
     const getInitials = useInitials();
 
     // popup / dropdown ถูก render นอก layout ใส่ class ที่ body ให้ใช้สีร้านด้วย
@@ -158,6 +159,12 @@ export default function ShopLayout({ children }: { children: ReactNode }) {
                                             <p className="truncate text-xs text-muted-foreground">
                                                 {auth.user.email}
                                             </p>
+                                            {membership?.tier && (
+                                                <TierBadge
+                                                    name={membership.tier.name}
+                                                    className="mt-2"
+                                                />
+                                            )}
                                         </DropdownMenuLabel>
                                         <DropdownMenuSeparator />
                                         <MenuLink
