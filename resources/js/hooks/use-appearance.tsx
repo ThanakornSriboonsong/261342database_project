@@ -11,6 +11,8 @@ export type UseAppearanceReturn = {
 
 const listeners = new Set<() => void>();
 let currentAppearance: Appearance = 'system';
+// While a page forces light mode (the shop), theme changes are not applied.
+let lightLocks = 0;
 
 const prefersDark = (): boolean => {
     if (typeof window === 'undefined') {
@@ -46,7 +48,7 @@ const applyTheme = (appearance: Appearance): void => {
         return;
     }
 
-    const isDark = isDarkMode(appearance);
+    const isDark = lightLocks === 0 && isDarkMode(appearance);
 
     document.documentElement.classList.toggle('dark', isDark);
     document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
@@ -85,6 +87,19 @@ export function initializeTheme(): void {
 
     // Set up system theme change listener
     mediaQuery()?.addEventListener('change', handleSystemThemeChange);
+}
+
+/**
+ * Show light mode until the returned cleanup runs, then go back to the user's setting.
+ */
+export function forceLightTheme(): () => void {
+    lightLocks++;
+    applyTheme(currentAppearance);
+
+    return () => {
+        lightLocks--;
+        applyTheme(currentAppearance);
+    };
 }
 
 export function useAppearance(): UseAppearanceReturn {
