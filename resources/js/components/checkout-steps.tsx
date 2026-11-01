@@ -32,7 +32,7 @@ export default function CheckoutSteps({ current }: { current: number }) {
                                     done
                                         ? 'bg-foreground text-background'
                                         : active
-                                          ? 'bg-banana'
+                                          ? 'bg-banana text-on-banana'
                                           : 'border bg-card text-muted-foreground',
                                 )}
                             >

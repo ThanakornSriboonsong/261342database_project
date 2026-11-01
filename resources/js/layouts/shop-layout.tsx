@@ -18,7 +18,6 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { forceLightTheme } from '@/hooks/use-appearance';
 import { useInitials } from '@/hooks/use-initials';
 import { cn } from '@/lib/utils';
 import { home, login, logout, register } from '@/routes';
@@ -33,15 +32,11 @@ export default function ShopLayout({ children }: { children: ReactNode }) {
     const { auth, name } = page.props;
     const getInitials = useInitials();
 
-    // หน้าร้านออกแบบเป็นโทนสว่างอย่างเดียว ให้ popup / dropdown ใช้สีร้านด้วย
+    // popup / dropdown ถูก render นอก layout ใส่ class ที่ body ให้ใช้สีร้านด้วย
     useEffect(() => {
-        const restoreTheme = forceLightTheme();
         document.body.classList.add('shop');
 
-        return () => {
-            document.body.classList.remove('shop');
-            restoreTheme();
-        };
+        return () => document.body.classList.remove('shop');
     }, []);
 
     const path = page.url.split('?')[0];
@@ -80,7 +75,7 @@ export default function ShopLayout({ children }: { children: ReactNode }) {
                                 className={cn(
                                     'rounded-full px-4 py-1.5 text-sm font-medium transition-colors',
                                     isActive(link.href)
-                                        ? 'bg-banana text-foreground'
+                                        ? 'bg-banana text-on-banana'
                                         : 'text-muted-foreground hover:text-foreground',
                                 )}
                             >

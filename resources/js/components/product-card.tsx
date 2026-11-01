@@ -111,7 +111,7 @@ export default function ProductCard({ product }: Props) {
                             type="button"
                             onClick={addToCart}
                             disabled={soldOut}
-                            className="inline-flex items-center gap-1 rounded-full bg-banana px-3 py-1.5 text-sm font-medium transition-colors hover:bg-banana/80 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground"
+                            className="inline-flex items-center gap-1 rounded-full bg-banana px-3 py-1.5 text-sm font-medium text-on-banana transition-colors hover:bg-banana/80 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground"
                         >
                             <Plus className="size-4" />
                             ใส่ตะกร้า
@@ -119,7 +119,7 @@ export default function ProductCard({ product }: Props) {
                     ) : (
                         <Link
                             href={login()}
-                            className="inline-flex items-center gap-1 rounded-full bg-banana px-3 py-1.5 text-sm font-medium transition-colors hover:bg-banana/80"
+                            className="inline-flex items-center gap-1 rounded-full bg-banana px-3 py-1.5 text-sm font-medium text-on-banana transition-colors hover:bg-banana/80"
                         >
                             <Plus className="size-4" />
                             ใส่ตะกร้า

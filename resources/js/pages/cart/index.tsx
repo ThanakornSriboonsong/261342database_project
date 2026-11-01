@@ -232,7 +232,7 @@ function PromotionBox({ promotion }: { promotion: Props['promotion'] }) {
                 <button
                     type="button"
                     aria-label="ถอดโค้ด"
-                    className="flex size-8 items-center justify-center rounded-full text-muted-foreground hover:bg-white hover:text-foreground"
+                    className="flex size-8 items-center justify-center rounded-full text-muted-foreground hover:bg-card hover:text-foreground"
                     onClick={() =>
                         router.delete(removePromotion.url(), {
                             preserveScroll: true,

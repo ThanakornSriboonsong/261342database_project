@@ -54,6 +54,7 @@
     /* Shop accents (see .shop below) */
     --color-banana: #f5c342;
     --color-banana-soft: #fdf3d7;
+    --color-on-banana: #1f1d1a;
     --color-forest: #2f5a3c;
     --color-forest-soft: #e6f0e8;
 
@@ -180,6 +181,27 @@
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
     --radius-sm: calc(var(--radius) - 4px);
+}
+
+/* Storefront in dark mode: warm charcoal instead of pure black, same banana accent. */
+.dark .shop {
+    --background: #151311;
+    --foreground: #f2eee7;
+    --card: #1e1b18;
+    --card-foreground: #f2eee7;
+    --popover: #1e1b18;
+    --popover-foreground: #f2eee7;
+    --secondary: #2a2622;
+    --secondary-foreground: #f2eee7;
+    --muted: #2a2622;
+    --muted-foreground: #a29b90;
+    --accent: #2a2622;
+    --accent-foreground: #f2eee7;
+    --border: #322d28;
+    --input: #3a352f;
+    --color-banana-soft: #3a3020;
+    --color-forest: #3f7a52;
+    --color-forest-soft: #1f3326;
 }
 
 @layer base {

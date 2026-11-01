@@ -60,7 +60,7 @@ export default function Welcome({ newProducts, topRated, promotions }: Props) {
                     <div className="flex flex-wrap gap-3">
                         <Link
                             href={productsIndex()}
-                            className="inline-flex items-center gap-2 rounded-full bg-banana px-6 py-3 font-medium transition-colors hover:bg-banana/80"
+                            className="inline-flex items-center gap-2 rounded-full bg-banana px-6 py-3 font-medium text-on-banana transition-colors hover:bg-banana/80"
                         >
                             เลือกซื้อสินค้า
                             <ArrowRight className="size-4" />
@@ -124,7 +124,7 @@ export default function Welcome({ newProducts, topRated, promotions }: Props) {
                         />
                         <Link
                             href={productsIndex()}
-                            className="inline-flex items-center gap-2 rounded-full bg-banana px-5 py-2 font-medium text-foreground transition-colors hover:bg-banana/80"
+                            className="inline-flex items-center gap-2 rounded-full bg-banana px-5 py-2 font-medium text-on-banana transition-colors hover:bg-banana/80"
                         >
                             ช้อปเลย
                             <ArrowRight className="size-4" />
