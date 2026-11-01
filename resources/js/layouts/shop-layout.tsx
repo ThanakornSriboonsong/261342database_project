@@ -226,12 +226,6 @@ export default function ShopLayout({ children }: { children: ReactNode }) {
                         links={[
                             { label: 'สินค้าทั้งหมด', href: productsIndex.url() },
                             {
-                                label: 'สินค้ามีพร้อมส่ง',
-                                href: productsIndex.url({
-                                    query: { in_stock: 1 },
-                                }),
-                            },
-                            {
                                 label: 'คะแนนรีวิวสูงสุด',
                                 href: productsIndex.url({
                                     query: { sort: 'rating' },

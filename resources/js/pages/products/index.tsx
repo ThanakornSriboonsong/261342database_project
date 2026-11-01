@@ -2,7 +2,6 @@ import { Head, Link, router } from '@inertiajs/react';
 import { Search, X } from 'lucide-react';
 import Pagination from '@/components/pagination';
 import ProductCard from '@/components/product-card';
-import { Checkbox } from '@/components/ui/checkbox';
 import { cn } from '@/lib/utils';
 import { home } from '@/routes';
 import { index as productsIndex } from '@/routes/products';
@@ -38,14 +37,12 @@ export default function ProductsIndex({ products, filters }: Props) {
             {
                 ...(next.search ? { search: next.search } : {}),
                 ...(next.sort !== 'newest' ? { sort: next.sort } : {}),
-                ...(next.in_stock ? { in_stock: 1 } : {}),
             },
             { preserveState: true, replace: true },
         );
     };
 
-    const hasFilters =
-        filters.search !== '' || filters.in_stock || filters.sort !== 'newest';
+    const hasFilters = filters.search !== '' || filters.sort !== 'newest';
 
     return (
         <>
@@ -103,11 +100,7 @@ export default function ProductsIndex({ products, filters }: Props) {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    applyFilters({
-                                        search: '',
-                                        sort: 'newest',
-                                        in_stock: false,
-                                    })
+                                    applyFilters({ search: '', sort: 'newest' })
                                 }
                                 className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
                             >
@@ -115,21 +108,6 @@ export default function ProductsIndex({ products, filters }: Props) {
                                 ล้างทั้งหมด
                             </button>
                         )}
-                    </div>
-
-                    <div className="space-y-3">
-                        <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
-                            สถานะสินค้า
-                        </p>
-                        <label className="flex cursor-pointer items-center gap-2 text-sm">
-                            <Checkbox
-                                checked={filters.in_stock}
-                                onCheckedChange={(checked) =>
-                                    applyFilters({ in_stock: checked === true })
-                                }
-                            />
-                            มีสินค้าพร้อมส่ง
-                        </label>
                     </div>
 
                     <div className="space-y-1">
